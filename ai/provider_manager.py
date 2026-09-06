@@ -39,19 +39,23 @@ class AIProviderManager:
         for name in self._active_order():
             provider = self._providers.get(name)
             if not provider or not provider.is_configured():
-                errors.append(f"{name}: not configured")
+                msg = f"{name}: not configured"
+                errors.append(msg)
+                print(f"[AIProviderManager] {msg}")
                 continue
             try:
                 result = provider.generate(prompt, system_prompt, max_tokens)
                 self.last_used_provider = name
                 return result
             except Exception as e:
-                errors.append(f"{name}: {e}")
+                msg = f"{name}: {e}"
+                errors.append(msg)
+                print(f"[AIProviderManager] {msg}")  # shows up in Streamlit Cloud logs
                 continue  # try next provider in fallback order
 
         self.last_error_log = errors
-        # This is the safe, user-facing message — raw errors are only in last_error_log
+        details = " | ".join(errors) if errors else "no providers attempted"
         raise RuntimeError(
             "AI service is temporarily busy. CareerPilot AI tried all available "
-            "providers but none responded successfully."
+            f"providers but none responded successfully. Details: {details}"
         )
