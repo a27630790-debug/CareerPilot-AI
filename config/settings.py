@@ -40,12 +40,12 @@ def get_secret(key: str) -> str:
 # 🔑 API KEY NAMES — put actual key VALUES in Colab Secrets /
 # Streamlit Secrets, never directly in this file.
 # ============================================================
-GEMINI_API_KEY_NAME = "GEMINI_API_KEY"   # <-- Colab: add secret named exactly this
-GROQ_API_KEY_NAME = "GROQ_API_KEY"       # <-- Colab: add secret named exactly this
+GEMINI_API_KEY_NAME = "GEMINI_API_KEY"
+GROQ_API_KEY_NAME = "GROQ_API_KEY"
 
 # Model names — change here if you want to switch models later
-GEMINI_MODEL = "gemini-2.0-flash"
-GROQ_MODEL = "llama-3.3-70b-versatile"
+GEMINI_MODEL = "gemini-flash-latest"
+GROQ_MODEL = "openai/gpt-oss-120b"
 
 # Fallback order: Gemini tried first, Groq if Gemini fails/unavailable
 PROVIDER_FALLBACK_ORDER = ["gemini", "groq"]
